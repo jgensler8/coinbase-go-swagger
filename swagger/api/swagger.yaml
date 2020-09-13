@@ -1,0 +1,1823 @@
+---
+swagger: "2.0"
+info:
+  description: "The Coinbase Pro API. See https://docs.pro.coinbase.com/ for more\
+    \ details on rate limiting, sandbox mode, and more."
+  version: "2.0.0"
+  title: "Coinbase Pro API"
+  contact:
+    name: "Jeff Gensler"
+    url: "http://github.com/jgensler8"
+host: "api.pro.coinbase.com"
+schemes:
+- "https"
+produces:
+- "application/json"
+paths:
+  /accounts:
+    get:
+      tags:
+      - "Accounts"
+      summary: "List accounts"
+      description: "Get a list of trading accounts from the profile of the API key."
+      parameters:
+      - name: "CB-ACCESS-KEY"
+        in: "header"
+        description: "The api key as a string."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSKEY"
+      - name: "CB-ACCESS-SIGN"
+        in: "header"
+        description: "The base64-encoded signature (see Signing a Message)."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSSIGN"
+      - name: "CB-ACCESS-TIMESTAMP"
+        in: "header"
+        description: "A timestamp for your request."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSTIMESTAMP"
+      - name: "CB-ACCESS-PASSPHRASE"
+        in: "header"
+        description: "The passphrase you specified when creating the API key."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSPASSPHRASE"
+      responses:
+        "200":
+          description: "The accounts"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Account"
+        default:
+          description: "error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /accounts/{account-id}:
+    get:
+      tags:
+      - "Accounts"
+      summary: "Get one account"
+      description: "Information for a single account. Use this endpoint when you know\
+        \ the account_id. API key must belong to the same profile as the account."
+      parameters:
+      - name: "CB-ACCESS-KEY"
+        in: "header"
+        description: "The api key as a string."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSKEY"
+      - name: "CB-ACCESS-SIGN"
+        in: "header"
+        description: "The base64-encoded signature (see Signing a Message)."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSSIGN"
+      - name: "CB-ACCESS-TIMESTAMP"
+        in: "header"
+        description: "A timestamp for your request."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSTIMESTAMP"
+      - name: "CB-ACCESS-PASSPHRASE"
+        in: "header"
+        description: "The passphrase you specified when creating the API key."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSPASSPHRASE"
+      - name: "account-id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "AccountId"
+      responses:
+        "200":
+          description: "The accounts"
+          schema:
+            $ref: "#/definitions/Account"
+        default:
+          description: "error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /accounts/{account-id}/ledger:
+    get:
+      tags:
+      - "Accounts"
+      summary: "Get ledger items"
+      description: "List account activity of the API key's profile. Account activity\
+        \ either increases or decreases your account balance. Items are paginated\
+        \ and sorted latest first. See the Pagination section for retrieving additional\
+        \ entries after the first page."
+      parameters:
+      - name: "CB-ACCESS-KEY"
+        in: "header"
+        description: "The api key as a string."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSKEY"
+      - name: "CB-ACCESS-SIGN"
+        in: "header"
+        description: "The base64-encoded signature (see Signing a Message)."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSSIGN"
+      - name: "CB-ACCESS-TIMESTAMP"
+        in: "header"
+        description: "A timestamp for your request."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSTIMESTAMP"
+      - name: "CB-ACCESS-PASSPHRASE"
+        in: "header"
+        description: "The passphrase you specified when creating the API key."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSPASSPHRASE"
+      - name: "account-id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "AccountId"
+      responses:
+        "200":
+          description: "The accounts"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/LedgerItem"
+        default:
+          description: "error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /accounts/{account-id}/holds:
+    get:
+      tags:
+      - "Accounts"
+      summary: "Get ledger items"
+      description: "List holds of an account that belong to the same profile as the\
+        \ API key. Holds are placed on an account for any active orders or pending\
+        \ withdraw requests. As an order is filled, the hold amount is updated. If\
+        \ an order is canceled, any remaining hold is removed. For a withdraw, once\
+        \ it is completed, the hold is removed."
+      parameters:
+      - name: "CB-ACCESS-KEY"
+        in: "header"
+        description: "The api key as a string."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSKEY"
+      - name: "CB-ACCESS-SIGN"
+        in: "header"
+        description: "The base64-encoded signature (see Signing a Message)."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSSIGN"
+      - name: "CB-ACCESS-TIMESTAMP"
+        in: "header"
+        description: "A timestamp for your request."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSTIMESTAMP"
+      - name: "CB-ACCESS-PASSPHRASE"
+        in: "header"
+        description: "The passphrase you specified when creating the API key."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSPASSPHRASE"
+      - name: "account-id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "AccountId"
+      responses:
+        "200":
+          description: "The accounts"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Hold"
+        default:
+          description: "error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /orders:
+    get:
+      tags:
+      - "Orders"
+      summary: "list orders"
+      description: "List your current open orders from the profile that the API key\
+        \ belongs to. Only open or un-settled orders are returned. As soon as an order\
+        \ is no longer open and settled, it will no longer appear in the default request."
+      parameters:
+      - name: "CB-ACCESS-KEY"
+        in: "header"
+        description: "The api key as a string."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSKEY"
+      - name: "CB-ACCESS-SIGN"
+        in: "header"
+        description: "The base64-encoded signature (see Signing a Message)."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSSIGN"
+      - name: "CB-ACCESS-TIMESTAMP"
+        in: "header"
+        description: "A timestamp for your request."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSTIMESTAMP"
+      - name: "CB-ACCESS-PASSPHRASE"
+        in: "header"
+        description: "The passphrase you specified when creating the API key."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSPASSPHRASE"
+      - name: "product_id"
+        in: "query"
+        required: false
+        type: "string"
+        x-exportParamName: "ProductId"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "The orders"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Order"
+        default:
+          description: "error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    post:
+      tags:
+      - "Orders"
+      summary: "place a new order"
+      description: "You can place two types of orders: limit and market. Orders can\
+        \ only be placed if your account has sufficient funds. Each profile can have\
+        \ a maximum of 500 open orders on a product. Once reached, the profile will\
+        \ not be able to place any new orders until the total number of open orders\
+        \ is below 500. Once an order is placed, your account funds will be put on\
+        \ hold for the duration of the order. How much and which funds are put on\
+        \ hold depends on the order type and parameters specified. See the Holds details\
+        \ below."
+      parameters:
+      - name: "CB-ACCESS-KEY"
+        in: "header"
+        description: "The api key as a string."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSKEY"
+      - name: "CB-ACCESS-SIGN"
+        in: "header"
+        description: "The base64-encoded signature (see Signing a Message)."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSSIGN"
+      - name: "CB-ACCESS-TIMESTAMP"
+        in: "header"
+        description: "A timestamp for your request."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSTIMESTAMP"
+      - name: "CB-ACCESS-PASSPHRASE"
+        in: "header"
+        description: "The passphrase you specified when creating the API key."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSPASSPHRASE"
+      - in: "body"
+        name: "order"
+        required: true
+        schema:
+          $ref: "#/definitions/OrderRequest"
+        x-exportParamName: "Order"
+      responses:
+        "200":
+          description: "The order"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Order"
+        default:
+          description: "error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    delete:
+      tags:
+      - "Orders"
+      summary: "cancel all orders"
+      description: "With best effort, cancel all open orders from the profile that\
+        \ the API key belongs to. The response is a list of ids of the canceled orders."
+      parameters:
+      - name: "CB-ACCESS-KEY"
+        in: "header"
+        description: "The api key as a string."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSKEY"
+      - name: "CB-ACCESS-SIGN"
+        in: "header"
+        description: "The base64-encoded signature (see Signing a Message)."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSSIGN"
+      - name: "CB-ACCESS-TIMESTAMP"
+        in: "header"
+        description: "A timestamp for your request."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSTIMESTAMP"
+      - name: "CB-ACCESS-PASSPHRASE"
+        in: "header"
+        description: "The passphrase you specified when creating the API key."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSPASSPHRASE"
+      - in: "body"
+        name: "order"
+        required: true
+        schema:
+          type: "array"
+          items:
+            type: "string"
+            example: "144c6f8e-713f-4682-8435-5280fbe8b2b4"
+        x-exportParamName: "Order"
+      - name: "product_id"
+        in: "query"
+        required: false
+        type: "string"
+        x-exportParamName: "ProductId"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "OK"
+  /orders/{order-id}:
+    delete:
+      tags:
+      - "Orders"
+      summary: "cancel an order"
+      description: "Cancel a previously placed order. Order must belong to the profile\
+        \ that the API key belongs to.\nIf the order had no matches during its lifetime\
+        \ its record may be purged. This means the order details will not be available\
+        \ with GET /orders/<id>.\"\n"
+      parameters:
+      - name: "CB-ACCESS-KEY"
+        in: "header"
+        description: "The api key as a string."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSKEY"
+      - name: "CB-ACCESS-SIGN"
+        in: "header"
+        description: "The base64-encoded signature (see Signing a Message)."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSSIGN"
+      - name: "CB-ACCESS-TIMESTAMP"
+        in: "header"
+        description: "A timestamp for your request."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSTIMESTAMP"
+      - name: "CB-ACCESS-PASSPHRASE"
+        in: "header"
+        description: "The passphrase you specified when creating the API key."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSPASSPHRASE"
+      - name: "order-id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "OrderId"
+      - name: "product_id"
+        in: "query"
+        required: false
+        type: "string"
+        x-exportParamName: "ProductId"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "The accounts"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Order"
+        default:
+          description: "error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /fills:
+    get:
+      tags:
+      - "Orders"
+      summary: "list fills"
+      description: "Get a list of recent fills of the API key's profile."
+      parameters:
+      - name: "CB-ACCESS-KEY"
+        in: "header"
+        description: "The api key as a string."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSKEY"
+      - name: "CB-ACCESS-SIGN"
+        in: "header"
+        description: "The base64-encoded signature (see Signing a Message)."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSSIGN"
+      - name: "CB-ACCESS-TIMESTAMP"
+        in: "header"
+        description: "A timestamp for your request."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSTIMESTAMP"
+      - name: "CB-ACCESS-PASSPHRASE"
+        in: "header"
+        description: "The passphrase you specified when creating the API key."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSPASSPHRASE"
+      - name: "order_id"
+        in: "query"
+        required: false
+        type: "string"
+        default: "all"
+        x-exportParamName: "OrderId"
+        x-optionalDataType: "String"
+      - name: "product_id"
+        in: "query"
+        required: false
+        type: "string"
+        default: "all"
+        x-exportParamName: "ProductId"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "The orders"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Fill"
+        default:
+          description: "error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /users/self/exchange-limits:
+    get:
+      tags:
+      - "Limits"
+      summary: "list fills"
+      description: "This request will return information on your payment method transfer\
+        \ limits, as well as buy/sell limits per currency."
+      parameters:
+      - name: "CB-ACCESS-KEY"
+        in: "header"
+        description: "The api key as a string."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSKEY"
+      - name: "CB-ACCESS-SIGN"
+        in: "header"
+        description: "The base64-encoded signature (see Signing a Message)."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSSIGN"
+      - name: "CB-ACCESS-TIMESTAMP"
+        in: "header"
+        description: "A timestamp for your request."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSTIMESTAMP"
+      - name: "CB-ACCESS-PASSPHRASE"
+        in: "header"
+        description: "The passphrase you specified when creating the API key."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSPASSPHRASE"
+      - name: "order_id"
+        in: "query"
+        required: false
+        type: "string"
+        default: "all"
+        x-exportParamName: "OrderId"
+        x-optionalDataType: "String"
+      - name: "product_id"
+        in: "query"
+        required: false
+        type: "string"
+        default: "all"
+        x-exportParamName: "ProductId"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "The limits"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/LimitResponse"
+        default:
+          description: "error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /conversions:
+    post:
+      tags:
+      - "Stablecoin Conversions"
+      summary: "convert to/from stable coins?"
+      description: "Convert $10,000.00 to 10,000.00 USDC."
+      parameters:
+      - name: "CB-ACCESS-KEY"
+        in: "header"
+        description: "The api key as a string."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSKEY"
+      - name: "CB-ACCESS-SIGN"
+        in: "header"
+        description: "The base64-encoded signature (see Signing a Message)."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSSIGN"
+      - name: "CB-ACCESS-TIMESTAMP"
+        in: "header"
+        description: "A timestamp for your request."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSTIMESTAMP"
+      - name: "CB-ACCESS-PASSPHRASE"
+        in: "header"
+        description: "The passphrase you specified when creating the API key."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSPASSPHRASE"
+      - in: "body"
+        name: "order"
+        required: true
+        schema:
+          $ref: "#/definitions/OrderRequest"
+        x-exportParamName: "Order"
+      responses:
+        "200":
+          description: "The order"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Order"
+        default:
+          description: "error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /fees:
+    get:
+      tags:
+      - "Fees"
+      summary: "your current maker/taker fee rates"
+      description: "This request will return your current maker & taker fee rates,\
+        \ as well as your 30-day trailing volume. Quoted rates are subject to change.\
+        \ More information on fees can found on our support page."
+      parameters:
+      - name: "CB-ACCESS-KEY"
+        in: "header"
+        description: "The api key as a string."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSKEY"
+      - name: "CB-ACCESS-SIGN"
+        in: "header"
+        description: "The base64-encoded signature (see Signing a Message)."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSSIGN"
+      - name: "CB-ACCESS-TIMESTAMP"
+        in: "header"
+        description: "A timestamp for your request."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSTIMESTAMP"
+      - name: "CB-ACCESS-PASSPHRASE"
+        in: "header"
+        description: "The passphrase you specified when creating the API key."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSPASSPHRASE"
+      responses:
+        "200":
+          description: "The rates"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/FeeRateItem"
+        default:
+          description: "error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /users/self/trailing-volume:
+    get:
+      tags:
+      - "User Account"
+      summary: "Trailing Volume"
+      description: "This endpoint requires either the \"view\" or \"trade\" permission.\n\
+        This request will return your 30-day trailing volume for all products of the\
+        \ API key's profile. This is a cached value that's calculated every day at\
+        \ midnight UTC.\"\n"
+      parameters:
+      - name: "CB-ACCESS-KEY"
+        in: "header"
+        description: "The api key as a string."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSKEY"
+      - name: "CB-ACCESS-SIGN"
+        in: "header"
+        description: "The base64-encoded signature (see Signing a Message)."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSSIGN"
+      - name: "CB-ACCESS-TIMESTAMP"
+        in: "header"
+        description: "A timestamp for your request."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSTIMESTAMP"
+      - name: "CB-ACCESS-PASSPHRASE"
+        in: "header"
+        description: "The passphrase you specified when creating the API key."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSPASSPHRASE"
+      responses:
+        "200":
+          description: "The rates"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/VolumeItem"
+        default:
+          description: "error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /products:
+    get:
+      tags:
+      - "Products"
+      summary: "Get a list of available currency pairs for trading."
+      parameters:
+      - name: "CB-ACCESS-KEY"
+        in: "header"
+        description: "The api key as a string."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSKEY"
+      - name: "CB-ACCESS-SIGN"
+        in: "header"
+        description: "The base64-encoded signature (see Signing a Message)."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSSIGN"
+      - name: "CB-ACCESS-TIMESTAMP"
+        in: "header"
+        description: "A timestamp for your request."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSTIMESTAMP"
+      - name: "CB-ACCESS-PASSPHRASE"
+        in: "header"
+        description: "The passphrase you specified when creating the API key."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSPASSPHRASE"
+      responses:
+        "200":
+          description: "The products"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Product"
+        default:
+          description: "error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /products/{product-id}:
+    get:
+      tags:
+      - "Products"
+      summary: "Get market data for a specific currency pair."
+      parameters:
+      - name: "CB-ACCESS-KEY"
+        in: "header"
+        description: "The api key as a string."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSKEY"
+      - name: "CB-ACCESS-SIGN"
+        in: "header"
+        description: "The base64-encoded signature (see Signing a Message)."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSSIGN"
+      - name: "CB-ACCESS-TIMESTAMP"
+        in: "header"
+        description: "A timestamp for your request."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSTIMESTAMP"
+      - name: "CB-ACCESS-PASSPHRASE"
+        in: "header"
+        description: "The passphrase you specified when creating the API key."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSPASSPHRASE"
+      - name: "product-id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ProductId"
+      responses:
+        "200":
+          description: "The product"
+          schema:
+            $ref: "#/definitions/Product"
+        default:
+          description: "error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /products/{product-id}/book:
+    get:
+      tags:
+      - "Products"
+      summary: "Get a list of open orders for a product. The amount of detail shown\
+        \ can be customized with the level parameter."
+      description: "By default, only the inside (i.e. best) bid and ask are returned.\
+        \ This is equivalent to a book depth of 1 level. If you would like to see\
+        \ a larger order book, specify the level query parameter.\nIf a level is not\
+        \ aggregated, then all of the orders at each price will be returned. Aggregated\
+        \ levels return only one size for each active price (as if there was only\
+        \ a single order for that size at the level).\n"
+      parameters:
+      - name: "CB-ACCESS-KEY"
+        in: "header"
+        description: "The api key as a string."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSKEY"
+      - name: "CB-ACCESS-SIGN"
+        in: "header"
+        description: "The base64-encoded signature (see Signing a Message)."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSSIGN"
+      - name: "CB-ACCESS-TIMESTAMP"
+        in: "header"
+        description: "A timestamp for your request."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSTIMESTAMP"
+      - name: "CB-ACCESS-PASSPHRASE"
+        in: "header"
+        description: "The passphrase you specified when creating the API key."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSPASSPHRASE"
+      - name: "product-id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ProductId"
+      - name: "level"
+        in: "query"
+        description: "1: Only the best bid and ask\n2: Top 50 bids and asks (aggregated)\n\
+          3: Full order book (non aggregated)\n"
+        required: false
+        type: "string"
+        default: "1"
+        enum:
+        - "1"
+        - "2"
+        - "3"
+        x-exportParamName: "Level"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "The product"
+          schema:
+            $ref: "#/definitions/Book"
+        default:
+          description: "error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /products/{product-id}/ticker:
+    get:
+      tags:
+      - "Products"
+      summary: "Get Product Ticker"
+      description: "Snapshot information about the last trade (tick), best bid/ask\
+        \ and 24h volume."
+      parameters:
+      - name: "CB-ACCESS-KEY"
+        in: "header"
+        description: "The api key as a string."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSKEY"
+      - name: "CB-ACCESS-SIGN"
+        in: "header"
+        description: "The base64-encoded signature (see Signing a Message)."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSSIGN"
+      - name: "CB-ACCESS-TIMESTAMP"
+        in: "header"
+        description: "A timestamp for your request."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSTIMESTAMP"
+      - name: "CB-ACCESS-PASSPHRASE"
+        in: "header"
+        description: "The passphrase you specified when creating the API key."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSPASSPHRASE"
+      - name: "product-id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ProductId"
+      responses:
+        "200":
+          description: "The ticker"
+          schema:
+            $ref: "#/definitions/Ticker"
+        default:
+          description: "error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /products/{product-id}/trades:
+    get:
+      tags:
+      - "Products"
+      summary: "Get Trades"
+      description: "Snapshot information about the last trade (tick), best bid/ask\
+        \ and 24h volume."
+      parameters:
+      - name: "CB-ACCESS-KEY"
+        in: "header"
+        description: "The api key as a string."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSKEY"
+      - name: "CB-ACCESS-SIGN"
+        in: "header"
+        description: "The base64-encoded signature (see Signing a Message)."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSSIGN"
+      - name: "CB-ACCESS-TIMESTAMP"
+        in: "header"
+        description: "A timestamp for your request."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSTIMESTAMP"
+      - name: "CB-ACCESS-PASSPHRASE"
+        in: "header"
+        description: "The passphrase you specified when creating the API key."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSPASSPHRASE"
+      - name: "product-id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ProductId"
+      responses:
+        "200":
+          description: "The trades"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Trade"
+        default:
+          description: "error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /products/{product-id}/candles:
+    get:
+      tags:
+      - "Products"
+      summary: "Get Historic Rates"
+      description: "Historical rate data may be incomplete. No data is published for\
+        \ intervals where there are no ticks.\nHistorical rates should not be polled\
+        \ frequently. If you need real-time information, use the trade and book endpoints\
+        \ along with the websocket feed.\n"
+      parameters:
+      - name: "CB-ACCESS-KEY"
+        in: "header"
+        description: "The api key as a string."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSKEY"
+      - name: "CB-ACCESS-SIGN"
+        in: "header"
+        description: "The base64-encoded signature (see Signing a Message)."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSSIGN"
+      - name: "CB-ACCESS-TIMESTAMP"
+        in: "header"
+        description: "A timestamp for your request."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSTIMESTAMP"
+      - name: "CB-ACCESS-PASSPHRASE"
+        in: "header"
+        description: "The passphrase you specified when creating the API key."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSPASSPHRASE"
+      - name: "product-id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ProductId"
+      - name: "granularity"
+        in: "query"
+        description: "The granularity field must be one of the following values: {60,\
+          \ 300, 900, 3600, 21600, 86400}. Otherwise, your request will be rejected.\
+          \ These values correspond to timeslices representing one minute, five minutes,\
+          \ fifteen minutes, one hour, six hours, and one day, respectively.\n"
+        required: true
+        type: "string"
+        enum:
+        - "60"
+        - "300"
+        - "900"
+        - "3600"
+        - "21600"
+        - "86400"
+        x-exportParamName: "Granularity"
+      - name: "start"
+        in: "query"
+        description: "Start time in ISO 8601"
+        required: false
+        type: "string"
+        x-exportParamName: "Start"
+        x-optionalDataType: "String"
+      - name: "end"
+        in: "query"
+        description: "End time in ISO 8601"
+        required: false
+        type: "string"
+        x-exportParamName: "End"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "The trades"
+          schema:
+            type: "array"
+            items:
+              type: "array"
+              example:
+              - 1415398768
+              - 0.32
+              - 4.2
+              - 0.35
+              - 4.2
+              - 12.3
+              description: "[ time, low, high, open, close, volume ]"
+              items: {}
+        default:
+          description: "error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /products/{product-id}/stats:
+    get:
+      tags:
+      - "Products"
+      summary: "Get 24hr Stats"
+      description: "Get 24 hr stats for the product. volume is in base currency units.\
+        \ open, high, low are in quote currency units."
+      parameters:
+      - name: "CB-ACCESS-KEY"
+        in: "header"
+        description: "The api key as a string."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSKEY"
+      - name: "CB-ACCESS-SIGN"
+        in: "header"
+        description: "The base64-encoded signature (see Signing a Message)."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSSIGN"
+      - name: "CB-ACCESS-TIMESTAMP"
+        in: "header"
+        description: "A timestamp for your request."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSTIMESTAMP"
+      - name: "CB-ACCESS-PASSPHRASE"
+        in: "header"
+        description: "The passphrase you specified when creating the API key."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSPASSPHRASE"
+      - name: "product-id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ProductId"
+      responses:
+        "200":
+          description: "The stats"
+          schema:
+            $ref: "#/definitions/Stats"
+        default:
+          description: "error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+definitions:
+  ErrorResponse:
+    type: "object"
+    properties:
+      message:
+        type: "string"
+    description: "Unless otherwise stated, errors to bad requests will respond with\
+      \ HTTP 4xx or status codes. The body will also contain a message parameter indicating\
+      \ the cause. Your language's http library should be configured to provide message\
+      \ bodies for non-2xx requests so that you can read the message field from the\
+      \ body."
+  Account:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        description: "Account ID"
+      currency:
+        type: "string"
+        description: "the currency of the account"
+      balance:
+        type: "string"
+        description: "total funds in the account"
+      holds:
+        type: "string"
+        description: "funds on hold (not available for use)"
+      available:
+        type: "boolean"
+        description: "funds available to withdraw or trade"
+      trading_enabled:
+        type: "boolean"
+        description: "is trading enabled for this account?"
+    example:
+      balance: "balance"
+      available: true
+      holds: "holds"
+      currency: "currency"
+      id: "id"
+      trading_enabled: true
+  LedgerItem:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: "100"
+        description: "ledger item id?"
+      created_at:
+        type: "string"
+        example: "2014-11-07T08:19:27.028459Z"
+        description: "timestamp as string"
+      amount:
+        type: "string"
+        example: "0.001"
+      balance:
+        type: "string"
+        example: "239.669"
+      type:
+        type: "string"
+        example: "fee"
+      details:
+        $ref: "#/definitions/LedgerItem_details"
+    example:
+      amount: "0.001"
+      balance: "239.669"
+      created_at: "2014-11-07T08:19:27.028459Z"
+      details:
+        trade_id: "74"
+        product_id: "BTC-USD"
+        order_id: "d50ec984-77a8-460a-b958-66f114b0de9b"
+      id: "100"
+      type: "fee"
+  Hold:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: "82dcd140-c3c7-4507-8de4-2c529cd1a28f"
+      account_id:
+        type: "string"
+        example: "e0b3f39a-183d-453e-b754-0c13e5bab0b3"
+      created_at:
+        type: "string"
+        example: "2014-11-06T10:34:47.123456Z"
+      updated_at:
+        type: "string"
+        example: "2014-11-06T10:34:47.123456Z"
+      amount:
+        type: "string"
+        example: "4.23"
+      type:
+        type: "string"
+        example: "order"
+      reg:
+        type: "string"
+        example: "0a205de4-dd35-4370-a285-fe8fc375a273"
+    example:
+      amount: "4.23"
+      account_id: "e0b3f39a-183d-453e-b754-0c13e5bab0b3"
+      updated_at: "2014-11-06T10:34:47.123456Z"
+      reg: "0a205de4-dd35-4370-a285-fe8fc375a273"
+      created_at: "2014-11-06T10:34:47.123456Z"
+      id: "82dcd140-c3c7-4507-8de4-2c529cd1a28f"
+      type: "order"
+  LimitOrderRequest:
+    type: "object"
+    properties:
+      size:
+        type: "string"
+        example: "0.01"
+      price:
+        type: "string"
+        example: "0.100"
+      time_in_force:
+        type: "string"
+        example: "GTC"
+        enum:
+        - "GTC"
+        - "GTT"
+        - "IOC"
+        - "FOK"
+      cancel_after:
+        type: "string"
+        example: "hour"
+        enum:
+        - "min"
+        - "hour"
+        - "day"
+      post_only:
+        type: "boolean"
+        example: false
+  MarketOrderRequest:
+    type: "object"
+    properties:
+      size:
+        type: "string"
+        example: "0.01"
+      funds:
+        type: "string"
+        example: "1.0"
+    description: "One of size or funds is required."
+  OrderRequest:
+    type: "object"
+    properties:
+      client_oid:
+        type: "string"
+        example: "???"
+        description: "Order ID selected by you to identify your order"
+      type:
+        type: "string"
+        example: "limit"
+        enum:
+        - "limit"
+        - "market"
+      side:
+        type: "string"
+        example: "buy"
+        enum:
+        - "buy"
+        - "sell"
+      product_id:
+        type: "string"
+        example: "BTC-USD"
+      stp:
+        type: "string"
+        example: "dc"
+        description: "Self-trade prevention flag\ndc:  Decrease and Cancel (default)\n\
+          co:  Cancel oldest\ncn:  Cancel newest\ncb:  Cancel both\n"
+        enum:
+        - "dc"
+        - "co"
+        - "cn"
+        - "cb"
+      stop:
+        type: "string"
+        example: "loss"
+        enum:
+        - "loss"
+        - "entry"
+      stop_price:
+        type: "string"
+        example: ""
+        description: "Only if stop is defined. Sets trigger price for stop order."
+      size:
+        type: "string"
+        example: "0.01"
+      price:
+        type: "string"
+        example: "0.100"
+      time_in_force:
+        type: "string"
+        example: "GTC"
+        enum:
+        - "GTC"
+        - "GTT"
+        - "IOC"
+        - "FOK"
+      cancel_after:
+        type: "string"
+        example: "hour"
+        enum:
+        - "min"
+        - "hour"
+        - "day"
+      post_only:
+        type: "boolean"
+        example: false
+      funds:
+        type: "string"
+        example: "1.0"
+  Order:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: "d0c5340b-6d6c-49d9-b567-48c4bfca13d2"
+      price:
+        type: "string"
+        example: "0.100"
+      size:
+        type: "string"
+        example: "0.01"
+      product_id:
+        type: "string"
+        example: "BTC-USD"
+      side:
+        type: "string"
+        example: "buy"
+      stp:
+        type: "string"
+        example: "dc"
+      type:
+        type: "string"
+        example: "limit"
+      time_in_force:
+        type: "string"
+        example: "GTC"
+      post_only:
+        type: "boolean"
+        example: false
+      created_at:
+        type: "string"
+        example: "2016-12-08T20:02:28.53864Z"
+      fill_fees:
+        type: "string"
+        example: "0.0000000000000000"
+      filled_size:
+        type: "string"
+        example: "0.00000000"
+      executed_value:
+        type: "string"
+        example: "0.0000000000000000"
+      status:
+        type: "string"
+        example: "pending"
+      settled:
+        type: "boolean"
+        example: false
+    example:
+      side: "buy"
+      settled: false
+      created_at: "2016-12-08T20:02:28.53864Z"
+      post_only: false
+      type: "limit"
+      stp: "dc"
+      time_in_force: "GTC"
+      size: "0.01"
+      executed_value: "0.0000000000000000"
+      price: "0.100"
+      product_id: "BTC-USD"
+      filled_size: "0.00000000"
+      id: "d0c5340b-6d6c-49d9-b567-48c4bfca13d2"
+      fill_fees: "0.0000000000000000"
+      status: "pending"
+  Fill:
+    type: "object"
+    properties:
+      trade_id:
+        type: "integer"
+        example: 74
+      product_id:
+        type: "string"
+        example: "BTC-USD"
+      price:
+        type: "string"
+        example: "10.00"
+      size:
+        type: "string"
+        example: "0.01"
+      order_id:
+        type: "string"
+        example: "d50ec984-77a8-460a-b958-66f114b0de9b"
+      created_at:
+        type: "string"
+        example: "2014-11-07T22:19:28.578544Z"
+      liquidity:
+        type: "string"
+        example: "T"
+      fee:
+        type: "string"
+        example: "0.00025"
+      settled:
+        type: "boolean"
+        example: true
+      side:
+        type: "string"
+        example: "buy"
+    example:
+      side: "buy"
+      trade_id: 74
+      size: "0.01"
+      price: "10.00"
+      settled: true
+      product_id: "BTC-USD"
+      fee: "0.00025"
+      created_at: "2014-11-07T22:19:28.578544Z"
+      liquidity: "T"
+      order_id: "d50ec984-77a8-460a-b958-66f114b0de9b"
+  LimitResponseItem:
+    type: "object"
+    properties:
+      BAT:
+        $ref: "#/definitions/LimitResponseItem_BAT"
+    example:
+      BAT:
+        period_in_days: 7
+        max: "21267.54245368"
+        remaining: "21267.54245368"
+  LimitResponse:
+    type: "object"
+    properties:
+      limit_currency:
+        type: "string"
+        example: "USD"
+      transfer_limits:
+        $ref: "#/definitions/LimitResponse_transfer_limits"
+    example:
+      limit_currency: "USD"
+      transfer_limits:
+        paypal_withdrawl:
+          BAT:
+            period_in_days: 7
+            max: "21267.54245368"
+            remaining: "21267.54245368"
+        ach_no_balance:
+          BAT:
+            period_in_days: 7
+            max: "21267.54245368"
+            remaining: "21267.54245368"
+        exchange_ach:
+          BAT:
+            period_in_days: 7
+            max: "21267.54245368"
+            remaining: "21267.54245368"
+        instant_ach_withdrawl:
+          BAT:
+            period_in_days: 7
+            max: "21267.54245368"
+            remaining: "21267.54245368"
+        ach:
+          BAT:
+            period_in_days: 7
+            max: "21267.54245368"
+            remaining: "21267.54245368"
+        buy:
+          BAT:
+            period_in_days: 7
+            max: "21267.54245368"
+            remaining: "21267.54245368"
+        sell:
+          BAT:
+            period_in_days: 7
+            max: "21267.54245368"
+            remaining: "21267.54245368"
+        credit_debit_card:
+          BAT:
+            period_in_days: 7
+            max: "21267.54245368"
+            remaining: "21267.54245368"
+        ach_curm:
+          BAT:
+            period_in_days: 7
+            max: "21267.54245368"
+            remaining: "21267.54245368"
+        secure3d_buy:
+          BAT:
+            period_in_days: 7
+            max: "21267.54245368"
+            remaining: "21267.54245368"
+        exchange_withdraw:
+          BAT:
+            period_in_days: 7
+            max: "21267.54245368"
+            remaining: "21267.54245368"
+  ConversionRequest:
+    type: "object"
+    properties:
+      from:
+        type: "string"
+        example: "USD"
+      to:
+        type: "string"
+        example: "USDC"
+      amount:
+        type: "string"
+        example: "10000.00"
+  Conversion:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: "8942caee-f9d5-4600-a894-4811268545db"
+      amount:
+        type: "string"
+        example: "10000.00"
+      from_account_id:
+        type: "string"
+        example: "7849cc79-8b01-4793-9345-bc6b5f08acce"
+      to_account_id:
+        type: "string"
+        example: "105c3e58-0898-4106-8283-dc5781cda07b"
+      from:
+        type: "string"
+        example: "USD"
+      to:
+        type: "string"
+        example: "USDC"
+  FeeRateItem:
+    type: "object"
+    properties:
+      maker_fee_rate:
+        type: "string"
+        example: "0.0015"
+      taker_fee_rate:
+        type: "string"
+        example: "0.0025"
+      usd_volume:
+        type: "string"
+        example: "25000.00"
+    example:
+      taker_fee_rate: "0.0025"
+      maker_fee_rate: "0.0015"
+      usd_volume: "25000.00"
+  VolumeItem:
+    type: "object"
+    properties:
+      product_id:
+        type: "string"
+        example: "BTC-USD"
+      exchange_volume:
+        type: "string"
+        example: "11800.00000000"
+      volume:
+        type: "string"
+        example: "100.00000000"
+      recorded_at:
+        type: "string"
+        example: "1973-11-29T00:05:01.123456Z"
+    example:
+      volume: "100.00000000"
+      recorded_at: "1973-11-29T00:05:01.123456Z"
+      product_id: "BTC-USD"
+      exchange_volume: "11800.00000000"
+  Product:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: "BTC-USD"
+      display_name:
+        type: "string"
+        example: "BTC/USD"
+      base_currency:
+        type: "string"
+        example: "BTC"
+      quote_currency:
+        type: "string"
+        example: "USD"
+      base_increment:
+        type: "string"
+        example: "0.00000001"
+      quote_increment:
+        type: "string"
+        example: "0.01000000"
+      base_min_size:
+        type: "string"
+        example: "0.00100000"
+      base_max_size:
+        type: "string"
+        example: "280.00000000"
+      min_market_funds:
+        type: "string"
+        example: "5"
+      max_market_funds:
+        type: "string"
+        example: "1000000"
+      status:
+        type: "string"
+        example: "online"
+      status_message:
+        type: "string"
+        example: ""
+      cancel_only:
+        type: "boolean"
+        example: false
+      limit_only:
+        type: "boolean"
+        example: false
+      post_only:
+        type: "boolean"
+        example: false
+      trading_disabled:
+        type: "boolean"
+        example: false
+    example:
+      base_currency: "BTC"
+      status_message: ""
+      cancel_only: false
+      min_market_funds: "5"
+      trading_disabled: false
+      quote_increment: "0.01000000"
+      post_only: false
+      display_name: "BTC/USD"
+      limit_only: false
+      quote_currency: "USD"
+      max_market_funds: "1000000"
+      base_max_size: "280.00000000"
+      base_increment: "0.00000001"
+      id: "BTC-USD"
+      base_min_size: "0.00100000"
+      status: "online"
+  Book:
+    type: "object"
+    properties:
+      sequence:
+        type: "string"
+        example: "3"
+      bids:
+        type: "array"
+        items:
+          type: "array"
+          example:
+          - "295.96"
+          - "4.39088265"
+          - 2
+          items: {}
+    example:
+      sequence: "3"
+      bids:
+      - - "295.96"
+        - "4.39088265"
+        - 2
+      - - "295.96"
+        - "4.39088265"
+        - 2
+  Ticker:
+    type: "object"
+    properties:
+      trade_id:
+        type: "integer"
+        example: 4729088
+      price:
+        type: "string"
+        example: "333.99"
+      size:
+        type: "string"
+        example: "0.193"
+      bid:
+        type: "string"
+        example: "333.98"
+      ask:
+        type: "string"
+        example: "333.99"
+      volume:
+        type: "string"
+        example: "5957.11914015"
+      time:
+        type: "string"
+        example: "2015-11-14T20:46:03.511254Z"
+    example:
+      volume: "5957.11914015"
+      trade_id: 4729088
+      size: "0.193"
+      price: "333.99"
+      ask: "333.99"
+      time: "2015-11-14T20:46:03.511254Z"
+      bid: "333.98"
+  Trade:
+    type: "object"
+    properties:
+      time:
+        type: "string"
+        example: "2014-11-07T22:19:28.578544Z"
+      trade_id:
+        type: "integer"
+        example: 74
+      price:
+        type: "string"
+        example: "10.00000000"
+      size:
+        type: "string"
+        example: "0.01000000"
+      side:
+        type: "string"
+        example: "buy"
+    example:
+      side: "buy"
+      trade_id: 74
+      size: "0.01000000"
+      price: "10.00000000"
+      time: "2014-11-07T22:19:28.578544Z"
+  Stats:
+    type: "object"
+    properties:
+      open:
+        type: "string"
+        example: "6745.61000000"
+      high:
+        type: "string"
+        example: "7292.11000000"
+      low:
+        type: "string"
+        example: "6650.00000000"
+      volume:
+        type: "string"
+        example: "26185.51325269"
+      last:
+        type: "string"
+        example: "6813.19000000"
+      volume_30day:
+        type: "string"
+        example: "1019451.11188405"
+    example:
+      volume: "26185.51325269"
+      high: "7292.11000000"
+      last: "6813.19000000"
+      low: "6650.00000000"
+      volume_30day: "1019451.11188405"
+      open: "6745.61000000"
+  LedgerItem_details:
+    type: "object"
+    properties:
+      order_id:
+        type: "string"
+        example: "d50ec984-77a8-460a-b958-66f114b0de9b"
+        description: "uuid of order"
+      trade_id:
+        type: "string"
+        example: "74"
+      product_id:
+        type: "string"
+        example: "BTC-USD"
+    example:
+      trade_id: "74"
+      product_id: "BTC-USD"
+      order_id: "d50ec984-77a8-460a-b958-66f114b0de9b"
+  LimitResponseItem_BAT:
+    type: "object"
+    properties:
+      max:
+        type: "string"
+        example: "21267.54245368"
+      remaining:
+        type: "string"
+        example: "21267.54245368"
+      period_in_days:
+        type: "integer"
+        example: 7
+    example:
+      period_in_days: 7
+      max: "21267.54245368"
+      remaining: "21267.54245368"
+  LimitResponse_transfer_limits:
+    type: "object"
+    properties:
+      ach:
+        $ref: "#/definitions/LimitResponseItem"
+      ach_no_balance:
+        $ref: "#/definitions/LimitResponseItem"
+      credit_debit_card:
+        $ref: "#/definitions/LimitResponseItem"
+      ach_curm:
+        $ref: "#/definitions/LimitResponseItem"
+      secure3d_buy:
+        $ref: "#/definitions/LimitResponseItem"
+      exchange_withdraw:
+        $ref: "#/definitions/LimitResponseItem"
+      exchange_ach:
+        $ref: "#/definitions/LimitResponseItem"
+      paypal_withdrawl:
+        $ref: "#/definitions/LimitResponseItem"
+      instant_ach_withdrawl:
+        $ref: "#/definitions/LimitResponseItem"
+      buy:
+        $ref: "#/definitions/LimitResponseItem"
+      sell:
+        $ref: "#/definitions/LimitResponseItem"
+    example:
+      paypal_withdrawl:
+        BAT:
+          period_in_days: 7
+          max: "21267.54245368"
+          remaining: "21267.54245368"
+      ach_no_balance:
+        BAT:
+          period_in_days: 7
+          max: "21267.54245368"
+          remaining: "21267.54245368"
+      exchange_ach:
+        BAT:
+          period_in_days: 7
+          max: "21267.54245368"
+          remaining: "21267.54245368"
+      instant_ach_withdrawl:
+        BAT:
+          period_in_days: 7
+          max: "21267.54245368"
+          remaining: "21267.54245368"
+      ach:
+        BAT:
+          period_in_days: 7
+          max: "21267.54245368"
+          remaining: "21267.54245368"
+      buy:
+        BAT:
+          period_in_days: 7
+          max: "21267.54245368"
+          remaining: "21267.54245368"
+      sell:
+        BAT:
+          period_in_days: 7
+          max: "21267.54245368"
+          remaining: "21267.54245368"
+      credit_debit_card:
+        BAT:
+          period_in_days: 7
+          max: "21267.54245368"
+          remaining: "21267.54245368"
+      ach_curm:
+        BAT:
+          period_in_days: 7
+          max: "21267.54245368"
+          remaining: "21267.54245368"
+      secure3d_buy:
+        BAT:
+          period_in_days: 7
+          max: "21267.54245368"
+          remaining: "21267.54245368"
+      exchange_withdraw:
+        BAT:
+          period_in_days: 7
+          max: "21267.54245368"
+          remaining: "21267.54245368"
+parameters:
+  Key:
+    name: "CB-ACCESS-KEY"
+    in: "header"
+    description: "The api key as a string."
+    required: true
+    type: "string"
+    x-exportParamName: "CBACCESSKEY"
+  Sign:
+    name: "CB-ACCESS-SIGN"
+    in: "header"
+    description: "The base64-encoded signature (see Signing a Message)."
+    required: true
+    type: "string"
+    x-exportParamName: "CBACCESSSIGN"
+  Timestamp:
+    name: "CB-ACCESS-TIMESTAMP"
+    in: "header"
+    description: "A timestamp for your request."
+    required: true
+    type: "string"
+    x-exportParamName: "CBACCESSTIMESTAMP"
+  Passphrase:
+    name: "CB-ACCESS-PASSPHRASE"
+    in: "header"
+    description: "The passphrase you specified when creating the API key."
+    required: true
+    type: "string"
+    x-exportParamName: "CBACCESSPASSPHRASE"
