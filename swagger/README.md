@@ -50,6 +50,7 @@ Class | Method | HTTP request | Description
  - [Book](docs/Book.md)
  - [Conversion](docs/Conversion.md)
  - [ConversionRequest](docs/ConversionRequest.md)
+ - [Currency](docs/Currency.md)
  - [ErrorResponse](docs/ErrorResponse.md)
  - [FeeRateItem](docs/FeeRateItem.md)
  - [Fill](docs/Fill.md)
@@ -69,6 +70,16 @@ Class | Method | HTTP request | Description
  - [Ticker](docs/Ticker.md)
  - [Trade](docs/Trade.md)
  - [VolumeItem](docs/VolumeItem.md)
+ - [WebhookActivate](docs/WebhookActivate.md)
+ - [WebhookChange](docs/WebhookChange.md)
+ - [WebhookHeartbeat](docs/WebhookHeartbeat.md)
+ - [WebhookMatch](docs/WebhookMatch.md)
+ - [WebhookOpen](docs/WebhookOpen.md)
+ - [WebhookReceived](docs/WebhookReceived.md)
+ - [WebhookStatus](docs/WebhookStatus.md)
+ - [WebhookSubscribe](docs/WebhookSubscribe.md)
+ - [WebhookTicker](docs/WebhookTicker.md)
+ - [WebhookUnsubscribe](docs/WebhookUnsubscribe.md)
 
 
 ## Documentation For Authorization

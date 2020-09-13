@@ -8,6 +8,10 @@ import (
 	"time"
 )
 
+const (
+	ProductIDETHUSD = "ETH-USD"
+)
+
 // generateSignHeader creates the value for the CB-ACCESS-SIGN header
 // secret: base64 encoded string created during API key generation
 // method: GET

@@ -1678,6 +1678,323 @@ definitions:
       low: "6650.00000000"
       volume_30day: "1019451.11188405"
       open: "6745.61000000"
+  Currency:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: "USD"
+      name:
+        type: "string"
+        example: "United States Dollar"
+      min_size:
+        type: "string"
+        example: "0.01000000"
+      status:
+        type: "string"
+        example: "online"
+      status_message:
+        type: "string"
+        example: "null"
+      max_precision:
+        type: "string"
+        example: "0.01"
+      converitble_to:
+        type: "array"
+        example:
+        - "USDC"
+        items:
+          type: "string"
+      details:
+        type: "object"
+        example: {}
+        properties: {}
+  WebhookSubscribe:
+    type: "object"
+    properties:
+      type:
+        type: "string"
+        default: "subscribe"
+      product_ids:
+        type: "array"
+        items:
+          type: "string"
+      channels:
+        type: "array"
+        example:
+        - "level2"
+        - "heartbeat"
+        - name: "ticker"
+          product_ids:
+          - "ETH-BTC"
+          - "ETH-USD"
+        items: {}
+  WebhookUnsubscribe:
+    type: "object"
+    properties:
+      type:
+        type: "string"
+        default: "unsubscribe"
+      product_ids:
+        type: "array"
+        example:
+        - "ETH-USD"
+        - "ETH-EUR"
+        items:
+          type: "string"
+      channels:
+        type: "array"
+        items:
+          type: "string"
+          example: "ticker"
+  WebhookHeartbeat:
+    type: "object"
+    properties:
+      type:
+        type: "string"
+        default: "heartbeat"
+      sequence:
+        type: "integer"
+        example: 90
+      last_trade_id:
+        type: "integer"
+        example: 20
+      product_id:
+        type: "string"
+        example: "BTC-USD"
+      time:
+        type: "string"
+        example: "2014-11-07T08:19:28.464459Z"
+  WebhookStatus:
+    type: "object"
+    properties:
+      type:
+        type: "string"
+        default: "status"
+      products:
+        type: "array"
+        items:
+          $ref: "#/definitions/Product"
+      currencies:
+        type: "array"
+        items:
+          $ref: "#/definitions/Currency"
+  WebhookTicker:
+    type: "object"
+    properties:
+      type:
+        type: "string"
+        default: "ticket"
+      trade_id:
+        type: "integer"
+        example: 20153558
+      sequence:
+        type: "integer"
+        example: 3262786978
+      time:
+        type: "string"
+        example: "2017-09-02T17:05:49.250000Z"
+      product_id:
+        type: "string"
+        example: "BTC-USD"
+      price:
+        type: "string"
+        example: "4388.01000000"
+      side:
+        type: "string"
+        example: "buy"
+      last_size:
+        type: "string"
+        example: "0.03000000"
+      best_bid:
+        type: "string"
+        example: "4388"
+      best_ask:
+        type: "string"
+        example: "4388.01"
+  WebhookReceived:
+    type: "object"
+    properties:
+      type:
+        type: "string"
+        default: "received"
+      time:
+        type: "string"
+        example: "2017-09-02T17:05:49.250000Z"
+      product_id:
+        type: "string"
+        example: "BTC-USD"
+      sequence:
+        type: "integer"
+        example: 90
+      order_id:
+        type: "string"
+        example: "d50ec984-77a8-460a-b958-66f114b0de9b"
+      side:
+        type: "string"
+        example: "buy"
+      order_type:
+        type: "string"
+        example: "limit"
+      funds:
+        type: "string"
+        example: "3000.234"
+      size:
+        type: "string"
+        example: "1.34"
+      price:
+        type: "string"
+        example: "4388.01000000"
+  WebhookOpen:
+    type: "object"
+    properties:
+      type:
+        type: "string"
+        default: "open"
+      time:
+        type: "string"
+        example: "2017-09-02T17:05:49.250000Z"
+      product_id:
+        type: "string"
+        example: "BTC-USD"
+      sequence:
+        type: "integer"
+        example: 90
+      order_id:
+        type: "string"
+        example: "d50ec984-77a8-460a-b958-66f114b0de9b"
+      side:
+        type: "string"
+        example: "buy"
+      remaining_size:
+        type: "string"
+        example: "1.34"
+      price:
+        type: "string"
+        example: "4388.01000000"
+    description: "The order is now open on the order book. This message will only\
+      \ be sent for orders which are not fully filled immediately. remaining_size\
+      \ will indicate how much of the order is unfilled and going on the book.\n"
+  WebhookMatch:
+    type: "object"
+    properties:
+      type:
+        type: "string"
+        default: "match"
+      trade_id:
+        type: "integer"
+        example: 10
+      sequence:
+        type: "integer"
+        example: 90
+      maker_order_id:
+        type: "string"
+        example: "ac928c66-ca53-498f-9c13-a110027a60e8"
+      taker_order_id:
+        type: "string"
+        example: "132fb6ae-456b-4654-b4e0-d681ac05cea1"
+      time:
+        type: "string"
+        example: "2017-09-02T17:05:49.250000Z"
+      product_id:
+        type: "string"
+        example: "BTC-USD"
+      size:
+        type: "string"
+        example: "1.34"
+      price:
+        type: "string"
+        example: "4388.01000000"
+      side:
+        type: "string"
+        example: "sell"
+      taker_user_id:
+        type: "string"
+        example: "5844eceecf7e803e259d0365"
+      user_id:
+        type: "string"
+        example: "5844eceecf7e803e259d0365"
+      taker_profile_id:
+        type: "string"
+        example: "765d1549-9660-4be2-97d4-fa2d65fa3352"
+      profile_id:
+        type: "string"
+        example: "765d1549-9660-4be2-97d4-fa2d65fa3352"
+  WebhookChange:
+    type: "object"
+    properties:
+      type:
+        type: "string"
+        default: "change"
+      time:
+        type: "string"
+        example: "2017-09-02T17:05:49.250000Z"
+      sequence:
+        type: "integer"
+        example: 90
+      order_id:
+        type: "string"
+        example: "d50ec984-77a8-460a-b958-66f114b0de9b"
+      product_id:
+        type: "string"
+        example: "BTC-USD"
+      side:
+        type: "string"
+        example: "sell"
+      price:
+        type: "string"
+        example: "400.23"
+      new_size:
+        type: "string"
+        example: "5.23512"
+      old_size:
+        type: "string"
+        example: "12.234412"
+      new_funds:
+        type: "string"
+        example: "5.23512"
+      old_funds:
+        type: "string"
+        example: "12.234412"
+  WebhookActivate:
+    type: "object"
+    properties:
+      type:
+        type: "string"
+        default: "activate"
+      product_id:
+        type: "string"
+        example: "BTC-USD"
+      timestamp:
+        type: "string"
+        example: "2017-09-02T17:05:49.250000Z"
+      user_id:
+        type: "string"
+        example: "5844eceecf7e803e259d0365"
+      profile_id:
+        type: "string"
+        example: "765d1549-9660-4be2-97d4-fa2d65fa3352"
+      order_id:
+        type: "string"
+        example: "d50ec984-77a8-460a-b958-66f114b0de9b"
+      stop_type:
+        type: "string"
+        example: "entry"
+      side:
+        type: "string"
+        example: "buy"
+      stop_price:
+        type: "string"
+        example: "80"
+      size:
+        type: "string"
+        example: "2"
+      funds:
+        type: "string"
+        example: "2"
+      private:
+        type: "boolean"
+        example: true
   LedgerItem_details:
     type: "object"
     properties:
