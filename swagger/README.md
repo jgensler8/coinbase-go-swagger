@@ -48,6 +48,8 @@ Class | Method | HTTP request | Description
 
  - [Account](docs/Account.md)
  - [Book](docs/Book.md)
+ - [BookItem](docs/BookItem.md)
+ - [Candle](docs/Candle.md)
  - [Conversion](docs/Conversion.md)
  - [ConversionRequest](docs/ConversionRequest.md)
  - [Currency](docs/Currency.md)

@@ -264,7 +264,7 @@ Historical rate data may be incomplete. No data is published for intervals where
      * @param "Start" (optional.String) -  Start time in ISO 8601
      * @param "End" (optional.String) -  End time in ISO 8601
 
-@return [][]interface{}
+@return [][]float32
 */
 
 type ProductsApiProductsProductIdCandlesGetOpts struct { 
@@ -272,13 +272,13 @@ type ProductsApiProductsProductIdCandlesGetOpts struct {
 	End optional.String
 }
 
-func (a *ProductsApiService) ProductsProductIdCandlesGet(ctx context.Context, cBACCESSKEY string, cBACCESSSIGN string, cBACCESSTIMESTAMP string, cBACCESSPASSPHRASE string, productId string, granularity string, localVarOptionals *ProductsApiProductsProductIdCandlesGetOpts) ([][]interface{}, *http.Response, error) {
+func (a *ProductsApiService) ProductsProductIdCandlesGet(ctx context.Context, cBACCESSKEY string, cBACCESSSIGN string, cBACCESSTIMESTAMP string, cBACCESSPASSPHRASE string, productId string, granularity string, localVarOptionals *ProductsApiProductsProductIdCandlesGetOpts) ([][]float32, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-		localVarReturnValue [][]interface{}
+		localVarReturnValue [][]float32
 	)
 
 	// create path and map variables
@@ -348,7 +348,7 @@ func (a *ProductsApiService) ProductsProductIdCandlesGet(ctx context.Context, cB
 		}
 		
 		if localVarHttpResponse.StatusCode == 200 {
-			var v [][]interface{}
+			var v [][]float32
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()

@@ -88,7 +88,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **ProductsProductIdCandlesGet**
-> [][]interface{} ProductsProductIdCandlesGet(ctx, cBACCESSKEY, cBACCESSSIGN, cBACCESSTIMESTAMP, cBACCESSPASSPHRASE, productId, granularity, optional)
+> [][]float32 ProductsProductIdCandlesGet(ctx, cBACCESSKEY, cBACCESSSIGN, cBACCESSTIMESTAMP, cBACCESSPASSPHRASE, productId, granularity, optional)
 Get Historic Rates
 
 Historical rate data may be incomplete. No data is published for intervals where there are no ticks. Historical rates should not be polled frequently. If you need real-time information, use the trade and book endpoints along with the websocket feed. 
@@ -122,7 +122,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[][]interface{}**](array.md)
+[**[][]float32**](array.md)
 
 ### Authorization
 

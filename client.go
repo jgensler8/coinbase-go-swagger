@@ -13,12 +13,15 @@ type Client struct {
 	swaggerClient *swagger.APIClient
 }
 
-func NewClient(key string, secret string, passphrase string) *Client {
+func NewClient(sandbox bool, key string, secret string, passphrase string) *Client {
+	config := swagger.NewConfiguration()
+	config.BasePath = ProURL(sandbox, URLTypeREST).String()
+
 	return &Client{
 		key:        key,
 		secret:     secret,
 		passphrase: passphrase,
 
-		swaggerClient: swagger.NewAPIClient(swagger.NewConfiguration()),
+		swaggerClient: swagger.NewAPIClient(config),
 	}
 }

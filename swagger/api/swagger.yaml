@@ -988,8 +988,10 @@ paths:
               - 0.35
               - 4.2
               - 12.3
-              description: "[ time, low, high, open, close, volume ]"
-              items: {}
+              description: "this is actually a Candle. [ time, low, high, open, close,\
+                \ volume ]"
+              items:
+                type: "number"
         default:
           description: "error"
           schema:
@@ -1570,6 +1572,18 @@ definitions:
       id: "BTC-USD"
       base_min_size: "0.00100000"
       status: "online"
+  BookItem:
+    type: "object"
+    properties:
+      price:
+        type: "string"
+        example: "295.96"
+      size:
+        type: "string"
+        example: "4.39088265"
+      num_orders:
+        type: "integer"
+        example: 2
   Book:
     type: "object"
     properties:
@@ -1584,6 +1598,7 @@ definitions:
           - "295.96"
           - "4.39088265"
           - 2
+          description: "This is actually a BookItem"
           items: {}
     example:
       sequence: "3"
@@ -1709,6 +1724,27 @@ definitions:
         type: "object"
         example: {}
         properties: {}
+  Candle:
+    type: "object"
+    properties:
+      time:
+        type: "integer"
+        example: 1415398768
+      low:
+        type: "number"
+        example: 0.320000000000000006661338147750939242541790008544921875
+      high:
+        type: "number"
+        example: 4.20000000000000017763568394002504646778106689453125
+      open:
+        type: "number"
+        example: 0.34999999999999997779553950749686919152736663818359375
+      close:
+        type: "number"
+        example: 4.20000000000000017763568394002504646778106689453125
+      volume:
+        type: "number"
+        example: 12.300000000000000710542735760100185871124267578125
   WebhookSubscribe:
     type: "object"
     properties:
