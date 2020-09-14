@@ -88,7 +88,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **ProductsProductIdCandlesGet**
-> [][]float32 ProductsProductIdCandlesGet(ctx, cBACCESSKEY, cBACCESSSIGN, cBACCESSTIMESTAMP, cBACCESSPASSPHRASE, productId, granularity, optional)
+> [][]float32 ProductsProductIdCandlesGet(ctx, cBACCESSKEY, cBACCESSSIGN, cBACCESSTIMESTAMP, cBACCESSPASSPHRASE, productId, parameters)
 Get Historic Rates
 
 Historical rate data may be incomplete. No data is published for intervals where there are no ticks. Historical rates should not be polled frequently. If you need real-time information, use the trade and book endpoints along with the websocket feed. 
@@ -103,22 +103,7 @@ Name | Type | Description  | Notes
   **cBACCESSTIMESTAMP** | **string**| A timestamp for your request. | 
   **cBACCESSPASSPHRASE** | **string**| The passphrase you specified when creating the API key. | 
   **productId** | **string**|  | 
-  **granularity** | **string**| The granularity field must be one of the following values: {60, 300, 900, 3600, 21600, 86400}. Otherwise, your request will be rejected. These values correspond to timeslices representing one minute, five minutes, fifteen minutes, one hour, six hours, and one day, respectively.  | 
- **optional** | ***ProductsApiProductsProductIdCandlesGetOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-Optional parameters are passed through a pointer to a ProductsApiProductsProductIdCandlesGetOpts struct
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-
-
-
- **start** | **optional.String**| Start time in ISO 8601 | 
- **end** | **optional.String**| End time in ISO 8601 | 
+  **parameters** | [**HistoricRateRequest**](HistoricRateRequest.md)|  | 
 
 ### Return type
 

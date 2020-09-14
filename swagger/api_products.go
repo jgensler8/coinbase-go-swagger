@@ -259,20 +259,11 @@ Historical rate data may be incomplete. No data is published for intervals where
  * @param cBACCESSTIMESTAMP A timestamp for your request.
  * @param cBACCESSPASSPHRASE The passphrase you specified when creating the API key.
  * @param productId
- * @param granularity The granularity field must be one of the following values: {60, 300, 900, 3600, 21600, 86400}. Otherwise, your request will be rejected. These values correspond to timeslices representing one minute, five minutes, fifteen minutes, one hour, six hours, and one day, respectively. 
- * @param optional nil or *ProductsApiProductsProductIdCandlesGetOpts - Optional Parameters:
-     * @param "Start" (optional.String) -  Start time in ISO 8601
-     * @param "End" (optional.String) -  End time in ISO 8601
+ * @param parameters
 
 @return [][]float32
 */
-
-type ProductsApiProductsProductIdCandlesGetOpts struct { 
-	Start optional.String
-	End optional.String
-}
-
-func (a *ProductsApiService) ProductsProductIdCandlesGet(ctx context.Context, cBACCESSKEY string, cBACCESSSIGN string, cBACCESSTIMESTAMP string, cBACCESSPASSPHRASE string, productId string, granularity string, localVarOptionals *ProductsApiProductsProductIdCandlesGetOpts) ([][]float32, *http.Response, error) {
+func (a *ProductsApiService) ProductsProductIdCandlesGet(ctx context.Context, cBACCESSKEY string, cBACCESSSIGN string, cBACCESSTIMESTAMP string, cBACCESSPASSPHRASE string, productId string, parameters HistoricRateRequest) ([][]float32, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -289,13 +280,6 @@ func (a *ProductsApiService) ProductsProductIdCandlesGet(ctx context.Context, cB
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	localVarQueryParams.Add("granularity", parameterToString(granularity, ""))
-	if localVarOptionals != nil && localVarOptionals.Start.IsSet() {
-		localVarQueryParams.Add("start", parameterToString(localVarOptionals.Start.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.End.IsSet() {
-		localVarQueryParams.Add("end", parameterToString(localVarOptionals.End.Value(), ""))
-	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}
 
@@ -317,6 +301,8 @@ func (a *ProductsApiService) ProductsProductIdCandlesGet(ctx context.Context, cB
 	localVarHeaderParams["CB-ACCESS-SIGN"] = parameterToString(cBACCESSSIGN, "")
 	localVarHeaderParams["CB-ACCESS-TIMESTAMP"] = parameterToString(cBACCESSTIMESTAMP, "")
 	localVarHeaderParams["CB-ACCESS-PASSPHRASE"] = parameterToString(cBACCESSPASSPHRASE, "")
+	// body params
+	localVarPostBody = &parameters
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err

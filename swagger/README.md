@@ -56,6 +56,7 @@ Class | Method | HTTP request | Description
  - [ErrorResponse](docs/ErrorResponse.md)
  - [FeeRateItem](docs/FeeRateItem.md)
  - [Fill](docs/Fill.md)
+ - [HistoricRateRequest](docs/HistoricRateRequest.md)
  - [Hold](docs/Hold.md)
  - [LedgerItem](docs/LedgerItem.md)
  - [LedgerItemDetails](docs/LedgerItemDetails.md)

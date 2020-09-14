@@ -944,36 +944,12 @@ paths:
         required: true
         type: "string"
         x-exportParamName: "ProductId"
-      - name: "granularity"
-        in: "query"
-        description: "The granularity field must be one of the following values: {60,\
-          \ 300, 900, 3600, 21600, 86400}. Otherwise, your request will be rejected.\
-          \ These values correspond to timeslices representing one minute, five minutes,\
-          \ fifteen minutes, one hour, six hours, and one day, respectively.\n"
+      - in: "body"
+        name: "parameters"
         required: true
-        type: "string"
-        enum:
-        - "60"
-        - "300"
-        - "900"
-        - "3600"
-        - "21600"
-        - "86400"
-        x-exportParamName: "Granularity"
-      - name: "start"
-        in: "query"
-        description: "Start time in ISO 8601"
-        required: false
-        type: "string"
-        x-exportParamName: "Start"
-        x-optionalDataType: "String"
-      - name: "end"
-        in: "query"
-        description: "End time in ISO 8601"
-        required: false
-        type: "string"
-        x-exportParamName: "End"
-        x-optionalDataType: "String"
+        schema:
+          $ref: "#/definitions/HistoricRateRequest"
+        x-exportParamName: "Parameters"
       responses:
         "200":
           description: "The trades"
@@ -1665,6 +1641,28 @@ definitions:
       size: "0.01000000"
       price: "10.00000000"
       time: "2014-11-07T22:19:28.578544Z"
+  HistoricRateRequest:
+    type: "object"
+    properties:
+      start:
+        type: "string"
+        description: "Start time in ISO 8601"
+      end:
+        type: "string"
+        description: "End time in ISO 8601"
+      granularity:
+        type: "string"
+        description: "The granularity field must be one of the following values: {60,\
+          \ 300, 900, 3600, 21600, 86400}. Otherwise, your request will be rejected.\
+          \ These values correspond to timeslices representing one minute, five minutes,\
+          \ fifteen minutes, one hour, six hours, and one day, respectively.\n"
+        enum:
+        - "60"
+        - "300"
+        - "900"
+        - "3600"
+        - "21600"
+        - "86400"
   Stats:
     type: "object"
     properties:
