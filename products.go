@@ -15,12 +15,12 @@ func (c *Client) GetTrades(ctx context.Context, productId string) ([]swagger.Tra
 	return c.swaggerClient.ProductsApi.ProductsProductIdTradesGet(ctx, c.key, header, timestamp, c.passphrase, productId)
 }
 
-func (c *Client) GetHistoricRates(ctx context.Context, productId string, granularity string, localVarOptionals *swagger.ProductsApiProductsProductIdCandlesGetOpts) ([]swagger.Candle, *http.Response, error) {
+func (c *Client) GetHistoricRates(ctx context.Context, productId string, parameters swagger.HistoricRateRequest) ([]swagger.Candle, *http.Response, error) {
 	timestamp, header, err := generateSignHeader(c.secret, "GET", "/accounts", nil)
 	if err != nil {
 		return nil, nil, err
 	}
-	candlesRaw, res, err := c.swaggerClient.ProductsApi.ProductsProductIdCandlesGet(ctx, c.key, header, timestamp, c.passphrase, productId, granularity, localVarOptionals)
+	candlesRaw, res, err := c.swaggerClient.ProductsApi.ProductsProductIdCandlesGet(ctx, c.key, header, timestamp, c.passphrase, productId, parameters)
 	candles := []swagger.Candle{}
 	for _, arr := range candlesRaw {
 		// Silently ignore missing data
