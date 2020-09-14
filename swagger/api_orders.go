@@ -482,15 +482,15 @@ You can place two types of orders: limit and market. Orders can only be placed i
  * @param cBACCESSPASSPHRASE The passphrase you specified when creating the API key.
  * @param order
 
-@return []Order
+@return Order
 */
-func (a *OrdersApiService) OrdersPost(ctx context.Context, cBACCESSKEY string, cBACCESSSIGN string, cBACCESSTIMESTAMP string, cBACCESSPASSPHRASE string, order OrderRequest) ([]Order, *http.Response, error) {
+func (a *OrdersApiService) OrdersPost(ctx context.Context, cBACCESSKEY string, cBACCESSSIGN string, cBACCESSTIMESTAMP string, cBACCESSPASSPHRASE string, order OrderRequest) (Order, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Post")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-		localVarReturnValue []Order
+		localVarReturnValue Order
 	)
 
 	// create path and map variables
@@ -554,7 +554,7 @@ func (a *OrdersApiService) OrdersPost(ctx context.Context, cBACCESSKEY string, c
 		}
 		
 		if localVarHttpResponse.StatusCode == 200 {
-			var v []Order
+			var v Order
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()

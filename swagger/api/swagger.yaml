@@ -300,9 +300,7 @@ paths:
         "200":
           description: "The order"
           schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Order"
+            $ref: "#/definitions/Order"
         default:
           description: "error"
           schema:

@@ -189,7 +189,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **OrdersPost**
-> []Order OrdersPost(ctx, cBACCESSKEY, cBACCESSSIGN, cBACCESSTIMESTAMP, cBACCESSPASSPHRASE, order)
+> Order OrdersPost(ctx, cBACCESSKEY, cBACCESSSIGN, cBACCESSTIMESTAMP, cBACCESSPASSPHRASE, order)
 place a new order
 
 You can place two types of orders: limit and market. Orders can only be placed if your account has sufficient funds. Each profile can have a maximum of 500 open orders on a product. Once reached, the profile will not be able to place any new orders until the total number of open orders is below 500. Once an order is placed, your account funds will be put on hold for the duration of the order. How much and which funds are put on hold depends on the order type and parameters specified. See the Holds details below.
@@ -207,7 +207,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]Order**](Order.md)
+[**Order**](Order.md)
 
 ### Authorization
 

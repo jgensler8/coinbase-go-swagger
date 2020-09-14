@@ -1,9 +1,13 @@
 package coinbase
 
 import (
+	"bytes"
 	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/base64"
+	"encoding/json"
+	"io/ioutil"
+	"math/big"
 	"net/url"
 	"strconv"
 	"time"
@@ -45,6 +49,16 @@ func generateSignHeader(secret string, method string, requestPath string, body [
 	signature := base64.StdEncoding.EncodeToString(h.Sum(nil))
 
 	return timestamp, signature, nil
+}
+
+func generateJsonSignHeader(secret string, method string, requestPath string, jsonableStruct interface{}) (string, string, error) {
+	bodyBuf := &bytes.Buffer{}
+	json.NewEncoder(bodyBuf).Encode(jsonableStruct)
+	body, err := ioutil.ReadAll(bodyBuf)
+	if err != nil {
+		return "", "", err
+	}
+	return generateSignHeader(secret, method, requestPath, body)
 }
 
 type URLType int
@@ -95,4 +109,14 @@ func ProURL(sandbox bool, urlType URLType) *url.URL {
 		return mustParseURL("tcp+ssl://fix.pro.coinbase.com:4198")
 	}
 	return nil
+}
+
+// Hopefully will help with: {"message":"size is too accurate. Smallest unit is 0.00000001"}
+// There may be another way to "round" these numbers or count in the minimal increment until price meets a target
+func RoundPrice(price float64, places int) float64 {
+	if places <= 0 {
+		places = 8
+	}
+	f, _ := strconv.ParseFloat(big.NewFloat(price).SetMode(big.AwayFromZero).Text('f', places), 64)
+	return f
 }
