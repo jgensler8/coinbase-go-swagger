@@ -355,6 +355,51 @@ paths:
         "200":
           description: "OK"
   /orders/{order-id}:
+    get:
+      tags:
+      - "Orders"
+      summary: "get an order"
+      description: "Get a single order by order id from the profile that the API key\
+        \ belongs to.\n"
+      parameters:
+      - name: "CB-ACCESS-KEY"
+        in: "header"
+        description: "The api key as a string."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSKEY"
+      - name: "CB-ACCESS-SIGN"
+        in: "header"
+        description: "The base64-encoded signature (see Signing a Message)."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSSIGN"
+      - name: "CB-ACCESS-TIMESTAMP"
+        in: "header"
+        description: "A timestamp for your request."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSTIMESTAMP"
+      - name: "CB-ACCESS-PASSPHRASE"
+        in: "header"
+        description: "The passphrase you specified when creating the API key."
+        required: true
+        type: "string"
+        x-exportParamName: "CBACCESSPASSPHRASE"
+      - name: "order-id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "OrderId"
+      responses:
+        "200":
+          description: "The order"
+          schema:
+            $ref: "#/definitions/Order"
+        default:
+          description: "error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
     delete:
       tags:
       - "Orders"
@@ -401,7 +446,7 @@ paths:
         x-optionalDataType: "String"
       responses:
         "200":
-          description: "The accounts"
+          description: "The orders"
           schema:
             type: "array"
             items:

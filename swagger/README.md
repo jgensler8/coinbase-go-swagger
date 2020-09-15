@@ -32,6 +32,7 @@ Class | Method | HTTP request | Description
 *OrdersApi* | [**OrdersDelete**](docs/OrdersApi.md#ordersdelete) | **Delete** /orders | cancel all orders
 *OrdersApi* | [**OrdersGet**](docs/OrdersApi.md#ordersget) | **Get** /orders | list orders
 *OrdersApi* | [**OrdersOrderIdDelete**](docs/OrdersApi.md#ordersorderiddelete) | **Delete** /orders/{order-id} | cancel an order
+*OrdersApi* | [**OrdersOrderIdGet**](docs/OrdersApi.md#ordersorderidget) | **Get** /orders/{order-id} | get an order
 *OrdersApi* | [**OrdersPost**](docs/OrdersApi.md#orderspost) | **Post** /orders | place a new order
 *ProductsApi* | [**ProductsGet**](docs/ProductsApi.md#productsget) | **Get** /products | Get a list of available currency pairs for trading.
 *ProductsApi* | [**ProductsProductIdBookGet**](docs/ProductsApi.md#productsproductidbookget) | **Get** /products/{product-id}/book | Get a list of open orders for a product. The amount of detail shown can be customized with the level parameter.

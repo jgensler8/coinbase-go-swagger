@@ -473,6 +473,114 @@ func (a *OrdersApiService) OrdersOrderIdDelete(ctx context.Context, cBACCESSKEY 
 }
 
 /* 
+OrdersApiService get an order
+Get a single order by order id from the profile that the API key belongs to. 
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param cBACCESSKEY The api key as a string.
+ * @param cBACCESSSIGN The base64-encoded signature (see Signing a Message).
+ * @param cBACCESSTIMESTAMP A timestamp for your request.
+ * @param cBACCESSPASSPHRASE The passphrase you specified when creating the API key.
+ * @param orderId
+
+@return Order
+*/
+func (a *OrdersApiService) OrdersOrderIdGet(ctx context.Context, cBACCESSKEY string, cBACCESSSIGN string, cBACCESSTIMESTAMP string, cBACCESSPASSPHRASE string, orderId string) (Order, *http.Response, error) {
+	var (
+		localVarHttpMethod = strings.ToUpper("Get")
+		localVarPostBody   interface{}
+		localVarFileName   string
+		localVarFileBytes  []byte
+		localVarReturnValue Order
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.BasePath + "/orders/{order-id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"order-id"+"}", fmt.Sprintf("%v", orderId), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	}
+	localVarHeaderParams["CB-ACCESS-KEY"] = parameterToString(cBACCESSKEY, "")
+	localVarHeaderParams["CB-ACCESS-SIGN"] = parameterToString(cBACCESSSIGN, "")
+	localVarHeaderParams["CB-ACCESS-TIMESTAMP"] = parameterToString(cBACCESSTIMESTAMP, "")
+	localVarHeaderParams["CB-ACCESS-PASSPHRASE"] = parameterToString(cBACCESSPASSPHRASE, "")
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHttpResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
+	localVarHttpResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	if localVarHttpResponse.StatusCode < 300 {
+		// If we succeed, return the data, otherwise pass on to decode error.
+		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+		if err == nil { 
+			return localVarReturnValue, localVarHttpResponse, err
+		}
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		newErr := GenericSwaggerError{
+			body: localVarBody,
+			error: localVarHttpResponse.Status,
+		}
+		
+		if localVarHttpResponse.StatusCode == 200 {
+			var v Order
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHttpResponse, newErr
+				}
+				newErr.model = v
+				return localVarReturnValue, localVarHttpResponse, newErr
+		}
+		
+		if localVarHttpResponse.StatusCode == 0 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHttpResponse, newErr
+				}
+				newErr.model = v
+				return localVarReturnValue, localVarHttpResponse, newErr
+		}
+		
+		return localVarReturnValue, localVarHttpResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHttpResponse, nil
+}
+
+/* 
 OrdersApiService place a new order
 You can place two types of orders: limit and market. Orders can only be placed if your account has sufficient funds. Each profile can have a maximum of 500 open orders on a product. Once reached, the profile will not be able to place any new orders until the total number of open orders is below 500. Once an order is placed, your account funds will be put on hold for the duration of the order. How much and which funds are put on hold depends on the order type and parameters specified. See the Holds details below.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().

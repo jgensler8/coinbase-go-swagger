@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**OrdersDelete**](OrdersApi.md#OrdersDelete) | **Delete** /orders | cancel all orders
 [**OrdersGet**](OrdersApi.md#OrdersGet) | **Get** /orders | list orders
 [**OrdersOrderIdDelete**](OrdersApi.md#OrdersOrderIdDelete) | **Delete** /orders/{order-id} | cancel an order
+[**OrdersOrderIdGet**](OrdersApi.md#OrdersOrderIdGet) | **Get** /orders/{order-id} | get an order
 [**OrdersPost**](OrdersApi.md#OrdersPost) | **Post** /orders | place a new order
 
 
@@ -176,6 +177,38 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**[]Order**](Order.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **OrdersOrderIdGet**
+> Order OrdersOrderIdGet(ctx, cBACCESSKEY, cBACCESSSIGN, cBACCESSTIMESTAMP, cBACCESSPASSPHRASE, orderId)
+get an order
+
+Get a single order by order id from the profile that the API key belongs to. 
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **cBACCESSKEY** | **string**| The api key as a string. | 
+  **cBACCESSSIGN** | **string**| The base64-encoded signature (see Signing a Message). | 
+  **cBACCESSTIMESTAMP** | **string**| A timestamp for your request. | 
+  **cBACCESSPASSPHRASE** | **string**| The passphrase you specified when creating the API key. | 
+  **orderId** | **string**|  | 
+
+### Return type
+
+[**Order**](Order.md)
 
 ### Authorization
 
