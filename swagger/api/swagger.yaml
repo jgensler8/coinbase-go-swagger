@@ -1786,7 +1786,7 @@ definitions:
       volume:
         type: "number"
         example: 12.300000000000000710542735760100185871124267578125
-  WebhookSubscribe:
+  WebsocketSubscribe:
     type: "object"
     properties:
       type:
@@ -1806,7 +1806,7 @@ definitions:
           - "ETH-BTC"
           - "ETH-USD"
         items: {}
-  WebhookUnsubscribe:
+  WebsocketUnsubscribe:
     type: "object"
     properties:
       type:
@@ -1824,7 +1824,7 @@ definitions:
         items:
           type: "string"
           example: "ticker"
-  WebhookHeartbeat:
+  WebsocketHeartbeat:
     type: "object"
     properties:
       type:
@@ -1842,7 +1842,7 @@ definitions:
       time:
         type: "string"
         example: "2014-11-07T08:19:28.464459Z"
-  WebhookStatus:
+  WebsocketStatus:
     type: "object"
     properties:
       type:
@@ -1856,7 +1856,7 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/Currency"
-  WebhookTicker:
+  WebsocketTicker:
     type: "object"
     properties:
       type:
@@ -1889,7 +1889,7 @@ definitions:
       best_ask:
         type: "string"
         example: "4388.01"
-  WebhookReceived:
+  WebsocketReceived:
     type: "object"
     properties:
       type:
@@ -1922,7 +1922,7 @@ definitions:
       price:
         type: "string"
         example: "4388.01000000"
-  WebhookOpen:
+  WebsocketOpen:
     type: "object"
     properties:
       type:
@@ -1952,7 +1952,7 @@ definitions:
     description: "The order is now open on the order book. This message will only\
       \ be sent for orders which are not fully filled immediately. remaining_size\
       \ will indicate how much of the order is unfilled and going on the book.\n"
-  WebhookMatch:
+  WebsocketMatch:
     type: "object"
     properties:
       type:
@@ -1997,7 +1997,7 @@ definitions:
       profile_id:
         type: "string"
         example: "765d1549-9660-4be2-97d4-fa2d65fa3352"
-  WebhookChange:
+  WebsocketChange:
     type: "object"
     properties:
       type:
@@ -2033,7 +2033,7 @@ definitions:
       old_funds:
         type: "string"
         example: "12.234412"
-  WebhookActivate:
+  WebsocketActivate:
     type: "object"
     properties:
       type:
@@ -2072,6 +2072,55 @@ definitions:
       private:
         type: "boolean"
         example: true
+  WebsocketSnapshot:
+    type: "object"
+    properties:
+      type:
+        type: "string"
+        default: "snapshot"
+      product_id:
+        type: "string"
+        example: "BTC-USD"
+      bids:
+        type: "array"
+        items:
+          type: "array"
+          example:
+          - "10101.10"
+          - "0.45054140"
+          items:
+            type: "string"
+      asks:
+        type: "array"
+        items:
+          type: "array"
+          example:
+          - "10102.55"
+          - "0.57753524"
+          items:
+            type: "string"
+  WebsocketL2Update:
+    type: "object"
+    properties:
+      type:
+        type: "string"
+        default: "l2update"
+      product_id:
+        type: "string"
+        example: "BTC-USD"
+      time:
+        type: "string"
+        example: "2017-09-02T17:05:49.250000Z"
+      changes:
+        type: "array"
+        items:
+          type: "array"
+          example:
+          - "buy"
+          - "10101.80000000"
+          - "0.162567"
+          items:
+            type: "string"
   LedgerItem_details:
     type: "object"
     properties:

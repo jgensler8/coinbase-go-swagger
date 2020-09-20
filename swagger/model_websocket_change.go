@@ -9,7 +9,7 @@
 
 package swagger
 
-type WebhookChange struct {
+type WebsocketChange struct {
 	Type_ string `json:"type,omitempty"`
 	Time string `json:"time,omitempty"`
 	Sequence int32 `json:"sequence,omitempty"`

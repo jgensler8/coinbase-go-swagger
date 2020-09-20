@@ -9,8 +9,9 @@
 
 package swagger
 
-type WebhookStatus struct {
+type WebsocketL2Update struct {
 	Type_ string `json:"type,omitempty"`
-	Products []Product `json:"products,omitempty"`
-	Currencies []Currency `json:"currencies,omitempty"`
+	ProductId string `json:"product_id,omitempty"`
+	Time string `json:"time,omitempty"`
+	Changes [][]string `json:"changes,omitempty"`
 }

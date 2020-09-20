@@ -9,8 +9,9 @@
 
 package swagger
 
-type WebhookSubscribe struct {
+type WebsocketSnapshot struct {
 	Type_ string `json:"type,omitempty"`
-	ProductIds []string `json:"product_ids,omitempty"`
-	Channels []interface{} `json:"channels,omitempty"`
+	ProductId string `json:"product_id,omitempty"`
+	Bids [][]string `json:"bids,omitempty"`
+	Asks [][]string `json:"asks,omitempty"`
 }

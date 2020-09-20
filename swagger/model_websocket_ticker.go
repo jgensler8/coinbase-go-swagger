@@ -9,19 +9,15 @@
 
 package swagger
 
-type WebhookMatch struct {
+type WebsocketTicker struct {
 	Type_ string `json:"type,omitempty"`
 	TradeId int32 `json:"trade_id,omitempty"`
 	Sequence int32 `json:"sequence,omitempty"`
-	MakerOrderId string `json:"maker_order_id,omitempty"`
-	TakerOrderId string `json:"taker_order_id,omitempty"`
 	Time string `json:"time,omitempty"`
 	ProductId string `json:"product_id,omitempty"`
-	Size string `json:"size,omitempty"`
 	Price string `json:"price,omitempty"`
 	Side string `json:"side,omitempty"`
-	TakerUserId string `json:"taker_user_id,omitempty"`
-	UserId string `json:"user_id,omitempty"`
-	TakerProfileId string `json:"taker_profile_id,omitempty"`
-	ProfileId string `json:"profile_id,omitempty"`
+	LastSize string `json:"last_size,omitempty"`
+	BestBid string `json:"best_bid,omitempty"`
+	BestAsk string `json:"best_ask,omitempty"`
 }

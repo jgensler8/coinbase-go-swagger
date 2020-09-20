@@ -9,10 +9,8 @@
 
 package swagger
 
-type WebhookHeartbeat struct {
+type WebsocketSubscribe struct {
 	Type_ string `json:"type,omitempty"`
-	Sequence int32 `json:"sequence,omitempty"`
-	LastTradeId int32 `json:"last_trade_id,omitempty"`
-	ProductId string `json:"product_id,omitempty"`
-	Time string `json:"time,omitempty"`
+	ProductIds []string `json:"product_ids,omitempty"`
+	Channels []interface{} `json:"channels,omitempty"`
 }

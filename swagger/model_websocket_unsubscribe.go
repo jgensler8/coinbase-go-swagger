@@ -9,7 +9,7 @@
 
 package swagger
 
-type WebhookUnsubscribe struct {
+type WebsocketUnsubscribe struct {
 	Type_ string `json:"type,omitempty"`
 	ProductIds []string `json:"product_ids,omitempty"`
 	Channels []string `json:"channels,omitempty"`

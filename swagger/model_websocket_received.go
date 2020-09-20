@@ -9,14 +9,15 @@
 
 package swagger
 
-// The order is now open on the order book. This message will only be sent for orders which are not fully filled immediately. remaining_size will indicate how much of the order is unfilled and going on the book. 
-type WebhookOpen struct {
+type WebsocketReceived struct {
 	Type_ string `json:"type,omitempty"`
 	Time string `json:"time,omitempty"`
 	ProductId string `json:"product_id,omitempty"`
 	Sequence int32 `json:"sequence,omitempty"`
 	OrderId string `json:"order_id,omitempty"`
 	Side string `json:"side,omitempty"`
-	RemainingSize string `json:"remaining_size,omitempty"`
+	OrderType string `json:"order_type,omitempty"`
+	Funds string `json:"funds,omitempty"`
+	Size string `json:"size,omitempty"`
 	Price string `json:"price,omitempty"`
 }

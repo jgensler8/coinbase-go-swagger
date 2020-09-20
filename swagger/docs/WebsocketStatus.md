@@ -1,4 +1,4 @@
-# WebhookStatus
+# WebsocketStatus
 
 ## Properties
 Name | Type | Description | Notes

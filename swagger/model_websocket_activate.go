@@ -9,7 +9,7 @@
 
 package swagger
 
-type WebhookActivate struct {
+type WebsocketActivate struct {
 	Type_ string `json:"type,omitempty"`
 	ProductId string `json:"product_id,omitempty"`
 	Timestamp string `json:"timestamp,omitempty"`
