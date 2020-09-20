@@ -23,3 +23,11 @@ func (c *Client) GetOrder(ctx context.Context, orderId string) (swagger.Order, *
 	}
 	return c.swaggerClient.OrdersApi.OrdersOrderIdGet(ctx, c.key, header, timestamp, c.passphrase, orderId)
 }
+
+func (c *Client) GetOrders(ctx context.Context) ([]swagger.Order, *http.Response, error) {
+	timestamp, header, err := generateSignHeader(c.secret, "GET", "/orders", nil)
+	if err != nil {
+		return []swagger.Order{}, nil, err
+	}
+	return c.swaggerClient.OrdersApi.OrdersGet(ctx, c.key, header, timestamp, c.passphrase, nil)
+}
